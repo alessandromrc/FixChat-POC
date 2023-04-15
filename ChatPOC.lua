@@ -1,18 +1,15 @@
+util.require_natives("natives-1672190175-uno")
+
 local draft = nil
 local last_draft = nil
 local chat_open = false
 local mode = 0
 local has_pressed_enter = false
 
-local send_chat_message = memory.scan("48 8D 15 ? ? ? ? 48 8D 4E 20 E8 ? ? ? ?")
-assert(send_chat_message ~= 0)
-
-if memory.read_ubyte(send_chat_message + 0x3D) == 0x74 then
-    memory.write_ubyte(send_chat_message + 0x3D, 0x75) -- triggers exceptions but won't waste time on finding a better place
-end
+NETWORK.NETWORK_OVERRIDE_SEND_RESTRICTIONS_ALL(true)
 
 util.on_stop(function(_)
-    memory.write_ubyte(send_chat_message + 0x3D, 0x74)
+    NETWORK.NETWORK_OVERRIDE_SEND_RESTRICTIONS_ALL(false)
 end)
 
 local function chat_input()
