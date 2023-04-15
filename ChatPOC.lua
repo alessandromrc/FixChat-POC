@@ -4,17 +4,17 @@ local chat_open = false
 local mode = 0;
 local has_pressed_enter = false;
 
-local send_chat_message = memory.scan("40 53 48 83 EC ? 48 8B D9 E8 ? ? ? ? 33 D2 85 C0 78 ? 48 98 48 8B 8C C3 90 23 00 00 EB ? 48 8B CA 48 85 C9 0F 95 C0?")
+
+local send_chat_message = memory.scan("48 8D 15 ? ? ? ? 48 8D 4E 20 E8 ? ? ? ?")
 assert(send_chat_message ~= 0)
 
-if memory.read_byte(send_chat_message + 0x12) == 0x78 then
-  memory.write_byte(send_chat_message + 0x12, 0x74)
+if memory.read_ubyte(send_chat_message + 0x3D) == 0x74 then
+    memory.write_ubyte(send_chat_message + 0x3D, 0x75) -- triggers exceptions but won't waste time on finding a better place
 end
 
 util.on_stop(function(_)
-  memory.write_byte(send_chat_message + 0x12, 0x78)
+    memory.write_ubyte(send_chat_message + 0x3D, 0x74)
 end)
-
 
 while true do
 
