@@ -5,8 +5,6 @@ local chat_open = false
 local mode = 0
 local has_pressed_enter = false
 
-NETWORK.NETWORK_OVERRIDE_SEND_RESTRICTIONS_ALL(true)
-
 util.on_stop(function(_)
     NETWORK.NETWORK_OVERRIDE_SEND_RESTRICTIONS_ALL(false)
 end)
@@ -57,6 +55,9 @@ while true do
         coroutine.resume(chat_input_co)
     end
     util.yield()
+    NETWORK.NETWORK_OVERRIDE_SEND_RESTRICTIONS_ALL(true)
 end
 
 util.keep_running()
+
+-- copy paste this, do whatever you want and if you want tell me that you did it, so I can see your result!
