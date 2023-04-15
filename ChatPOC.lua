@@ -1,7 +1,6 @@
 util.require_natives("natives-1672190175-uno")
 
 local draft = nil
-local last_draft = nil
 local chat_open = false
 local mode = 0
 local has_pressed_enter = false
@@ -40,8 +39,6 @@ while true do
     if chat_open then
         has_pressed_enter = util.is_key_down(0x0D)
         if has_pressed_enter then
-            last_draft = draft
-            util.toast(draft)
             local pid = players.user()
             for k, iter_pid in pairs(players.list(true, true, true)) do
                 if iter_pid ~= pid then
