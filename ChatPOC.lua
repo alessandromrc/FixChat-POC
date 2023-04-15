@@ -49,7 +49,6 @@ while true do
             if has_pressed_enter then
                 last_draft = draft
                 util.toast(draft)
-                chat.send_message(draft, 0, 0, 1)
                 local pid = players.user()
                 for k,iter_pid in pairs(players.list(true, true, true)) do
                     if iter_pid ~= pid then
